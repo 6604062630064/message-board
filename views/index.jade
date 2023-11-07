@@ -2,7 +2,7 @@ extends layout
 
 block content
   for member in messages
-    p= member.text
-    p= member.added
-    h1 by #{member.user}
+    p= member.message
+    p= member.date
+    h1 by #{member.author}
   a(href="/new") Sumbit a new message here!

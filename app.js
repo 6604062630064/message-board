@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 var createError = require("http-errors");
 var express = require("express");
 var path = require("path");
@@ -7,7 +9,19 @@ var logger = require("morgan");
 var indexRouter = require("./routes/index");
 var newRouter = require("./routes/new");
 
+const mongoose = require("mongoose");
+const url = process.env.mongoString;
 var app = express();
+
+mongoose.connect(url, { dbName: "message_board" });
+const database = mongoose.connection;
+database.on("error", (error) => {
+	console.log(error);
+});
+
+database.once("connected", () => {
+	console.log("Database Connected");
+});
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
